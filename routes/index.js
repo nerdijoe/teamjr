@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('./pages/index', { title: 'JR Food' });
+  res.render('./pages/index', { title: 'JR Food',  user: req.session.user, message: "", error: "" });
 });
 
 //middleware to authenticate user, before going to the home page

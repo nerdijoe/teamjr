@@ -1,0 +1,23 @@
+<nav>
+  <div class="nav-wrapper">
+    <a href="/" class="brand-logo">JR Food</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+
+      <% if (user) { %>
+        <% if (user.role === 0) { %>
+          <li><span class="new badge" data-badge-caption="Super Admin"></span></li>
+        <% } else if (user.role === 1) { %>
+          <li><span class="new badge" data-badge-caption="Admin"></span></li>
+        <% } else if (user.role === 2) { %>
+          <li><span class="new badge" data-badge-caption="Normal User"></span></li>
+        <% } %>
+
+        <li><a href='/users/logout'>Logout</a></li>
+      <% } else { %>
+        <li><a href="/users/new">Sign Up</a></li>
+        <li><a href="/users/login">Login</a></li>
+      <% } %>
+
+    </ul>
+  </div>
+</nav>

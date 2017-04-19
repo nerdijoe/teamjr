@@ -6,6 +6,7 @@
       <% if (user) { %>
         <% if (user.role === 0) { %>
           <li><span class="new badge" data-badge-caption="Super Admin"></span></li>
+          <li><a href='/menus/new'>Create New Menu</a></li>
         <% } else if (user.role === 1) { %>
           <li><span class="new badge" data-badge-caption="Admin"></span></li>
         <% } else if (user.role === 2) { %>

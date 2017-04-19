@@ -3,6 +3,9 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+
+  // query for menu
+
   res.render('./pages/index', { title: 'JR Food',  user: req.session.user, message: "", error: "" });
 });
 

@@ -56,7 +56,7 @@ router.get('/logout', (req, res, next) => {
     console.log("user logged out.")
   })
   // res.redirect('/');
-  res.render('./pages/index', { title: 'Bro',  user: undefined, message: "You have logged out.", error: "" });
+  res.render('./pages/index', { title: 'JR Food',  user: undefined, message: "You have logged out.", error: "" });
 
 })
 

@@ -32,6 +32,34 @@ router.get('/login', (req, res, next) => {
   res.render('./pages/login', {title: "Login", user: req.session.user, message: "", error: ""})
 })
 
+router.post('/login', (req, res, next) => {
+
+  db.User.findOne({where: {username: req.body.username, password: req.body.password}})
+  .then( user => {
+
+    if (user) {
+      console.log(`find user ${user.username}`);
+      //set session
+      req.session.user = user;
+      res.redirect('/home');
+    }
+    else {
+      // res.redirect('/');
+      res.render('./pages/login', { title: 'Login', user: req.session.user, message: ``, error: 'Invalid Username or Password.' });
+    }
+
+  })
+})
+
+router.get('/logout', (req, res, next) => {
+  req.session.destroy( () => {
+    console.log("user logged out.")
+  })
+  // res.redirect('/');
+  res.render('./pages/index', { title: 'Bro',  user: undefined, message: "You have logged out.", error: "" });
+
+})
+
 
 
 module.exports = router;

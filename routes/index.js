@@ -6,4 +6,24 @@ router.get('/', function(req, res, next) {
   res.render('./pages/index', { title: 'JR Food' });
 });
 
+//middleware to authenticate user, before going to the home page
+function checkSignIn(req, res, next){
+    if(req.session.user){
+        next();     //If session exists, proceed to page
+    } else {
+        // var err = new Error("Not logged in!");
+        // console.log(req.session.user);
+        // next(err);  //Error, trying to access unauthorized page!
+
+        // do not throw error, instead render to login page
+        res.render('./pages/login', { title: 'Login', user: req.session.user, message: ``, error: 'You need to login to access this page.' });
+    }
+}
+
+
+router.get('/home', checkSignIn, (req, res, next) => {
+  res.render('./pages/home', {title: "Home", user: req.session.user, message: "", error: ""})
+})
+
+
 module.exports = router;

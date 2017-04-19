@@ -2,7 +2,7 @@
 module.exports = function(sequelize, DataTypes) {
   var Menu = sequelize.define('Menu', {
     name: DataTypes.STRING,
-    price: DataTypes.MONEY
+    price: DataTypes.INTEGER
   }, {
     classMethods: {
       associate: function(models) {

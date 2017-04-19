@@ -1,12 +1,19 @@
 var express = require('express');
 var router = express.Router();
+const db = require('../models');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
   // query for menu
+  db.Menu.findAll()
+  .then ( menus => {
 
-  res.render('./pages/index', { title: 'JR Food',  user: req.session.user, message: "", error: "" });
+
+    res.render('./pages/index', { title: 'JR Food',  user: req.session.user, message: "", error: "", menus: menus });
+
+  })
+
 });
 
 //middleware to authenticate user, before going to the home page

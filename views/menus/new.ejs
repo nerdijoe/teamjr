@@ -11,7 +11,7 @@
     <a href="/menus"> Back to Menu List </a>
     <br>
 
-    <form action="/menus/new" method="post">
+    <form action="/menus/new" method="post" encType="multipart/form-data">
       <div class="row">
         <div class="input-field col s6">
           <input placeholder="Menu Name" type="text" name="name">
@@ -23,6 +23,14 @@
           <input placeholder="Price" type="text" name="price">
         </div>
       </div>
+
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="Image" type="file" name="image">
+        </div>
+      </div>
+
+
 
       <div class="row">
         <div class="input-field col s2">

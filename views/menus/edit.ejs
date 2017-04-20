@@ -5,14 +5,15 @@
   </head>
   <body>
     <% include ../partials/navbar %>
+    <br>
+    <a href="/menus"> Back to Menu List </a>
+    <br>
+
     <h5><%= title %></h5>
 
     <% include ../partials/card_message %>
     <% include ../partials/card_error %>
 
-    <br>
-    <a href="/menus"> Back to Menu List </a>
-    <br>
 
     <form action="/menus/edit/<%= menu.id %>" method="post">
       <div class="row">

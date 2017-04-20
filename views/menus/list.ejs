@@ -29,7 +29,8 @@
         <tr>
           <td> <%= m.name %> </td>
           <td> <%= m.price %></a> </td>
-          <td> <a href="/menus/edit/<%= m.id %>">Edit</a> | <a href="/menus/delete/<%= m.id %>" onClick="return confirm('Are you Sure?')">Del</a> </td>
+          <td> <a href="/menus/edit/<%= m.id %>"><i class="material-icons dp48">mode_edit</i></a>
+          <a href="/menus/delete/<%= m.id %>" onClick="return confirm('Are you Sure?')"><i class="material-icons dp48">delete</i></a> </td>
         </tr>
       <%
         })

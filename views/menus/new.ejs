@@ -5,11 +5,12 @@
   </head>
   <body>
     <% include ../partials/navbar %>
-    <h5><%= title %></h5>
-
     <br>
     <a href="/menus"> Back to Menu List </a>
     <br>
+
+    <h5><%= title %></h5>
+
 
     <form action="/menus/new" method="post" encType="multipart/form-data">
       <div class="row">
@@ -26,9 +27,12 @@
 
       <div class="row">
         <div class="input-field col s6">
-          <input placeholder="Image" type="file" name="image">
+          <div class="btn">
+            <input placeholder="Image" type="file" name="image">
+          </div>
         </div>
       </div>
+
 
 
 

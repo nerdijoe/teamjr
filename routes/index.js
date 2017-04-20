@@ -39,7 +39,9 @@ function checkSignIn(req, res, next){
 
 router.get('/home', checkSignIn, (req, res, next) => {
   res.render('./pages/home', {title: "Home", user: req.session.user, message: "", error: ""})
+
 })
+
 
 
 module.exports = router;

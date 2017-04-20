@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/head %>
+  </head>
+  <body>
+    <% include ../partials/navbar %>
+
+    <h4>PROFILE</h4>
+
+    <form action="/users/profile/edit" method="post">
+
+      <div class="row">
+        <div class="input-field col s6">
+          <i class="material-icons prefix">account_circle</i>
+          <input type="text" name="name" value="<%=user.name%>" >
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s6">
+          <i class="material-icons prefix">phone</i>
+          <input type="text" name="phone" value="<%=user.phone%>" >
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s6">
+          <i class="material-icons prefix">email</i>
+          <input type="text" name="email" value="<%=user.email%>" >
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="input-field col s2">
+        </div>
+        <div class="input-field col s2">
+          <input class="btn" type="submit" value="Save">
+        </div>
+        <div class="input-field col s2">
+        </div>
+        <div class="input-field col s6">
+        </div>
+
+      </div>
+    </form>
+  </body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/head %>
+  </head>
+  <body>
+    <% include ../partials/navbar %>
+    <h3><%= title %></h3>
+
+
+    <% if (menus) { %>
+
+    <table class="highlight">
+      <thead>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+
+      </thead>
+      <%
+        menus.forEach( m => {
+      %>
+        <tr>
+          <td> <%= m.name %> </td>
+          <td> <%= m.price %></a> </td>
+          <td> <%= m.quantity %> </td>
+          <td> <%= m.subtotal %> </td>
+        </tr>
+      <%
+        })
+      %>
+
+    </table>
+
+
+    <h5> Total Order: <%= order_total %></h5>
+
+
+    <%
+      } // end of if(menus)
+    %>
+
+
+  </body>
+</html>

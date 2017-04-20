@@ -161,13 +161,24 @@ router.get('/user_order', (req, res, next) => {
 
           })
 
-          // calculate subtotal
+          // calculate subtotal and total
+          let order_total = 0;
           ordered_menus.forEach( o => {
             o.subtotal = o.price * o.quantity;
+            order_total += o.subtotal;
+          })
+
+          // update order row
+          db.Order.update({total: order_total}, {fields: ['total'], where: {id: req.session.user.id_order}})
+          .then ( row => {
+
+            console.log(`Updated order total`);
+            req.session.user.order_total = order_total;
+            res.render('./pages/order', { title: 'My Order',  user: req.session.user, message: "", error: "", menus: ordered_menus, order_total: order_total });
+
           })
 
 
-          res.render('./pages/order', { title: 'My Order',  user: req.session.user, message: "", error: "", menus: ordered_menus });
 
         })
       })
@@ -175,7 +186,7 @@ router.get('/user_order', (req, res, next) => {
     }
     // if id_order does not exists
     else {
-      res.render('./pages/order', { title: 'My Order',  user: req.session.user, message: "You have not added any menu yet. Please add one.", error: "", menus: undefined });
+      res.render('./pages/order', { title: 'My Order',  user: req.session.user, message: "You have not added any menu yet. Please add one.", error: "", menus: undefined, order_total: 0 });
 
 
     }

@@ -18,7 +18,13 @@
               <div class="card-image">
                 <img src="images/cheesetart.jpg">
                 <span class="card-title"><%= menu.name %></span>
-                <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+
+                <form method="post" action="/users/order">
+                  <input type="hidden" name="menu_id" value="<%= menu.id %>">
+                  <input class="btn-floating halfway-fab waves-effect waves-light red" type="submit" value="+">
+
+                </form>
+
               </div>
               <div class="card-content">
                 <p>IDR <%= menu.price %></p>

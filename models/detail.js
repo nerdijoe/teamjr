@@ -9,6 +9,8 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
+        Detail.belongsTo(models.Order, { foreignKey: 'id_order'});
+        Detail.belongsTo(models.Menu, {foreignKey: 'id_menu'});
       }
     }
   });

@@ -64,5 +64,52 @@ router.get('/logout', (req, res, next) => {
 })
 
 
+router.post('/order', (req, res, next) => {
+  var menu_id = req.body.menu_id;
+  console.log(`user order menu_id = ${menu_id}`)
+
+  // create order
+  console.log(req.session.user);
+
+
+
+  // user needs to login first
+  if(!req.session.user) {
+    res.render('./pages/login', { title: 'Login', user: undefined, message: "Please Login to order food.", error: '' });
+  }
+  else {
+    console.log(req.session.user);
+    // res.redirect('/');
+
+    //if user has NOT created order, create order
+    if(!req.session.id_order) {
+      db.Order.create({id_user: req.session.user.id, is_checkout: false, total: 0})
+      .then ( order => {
+        db.Detail.create({id_order:order.id, id_menu: menu_id, quantity: 1, notes: "" })
+        .then ( menu => {
+          var message = `Created order ${order.id} with menu ${menu_id}.`
+          console.log(message);
+
+          res.redirect('/');
+
+        })
+      })
+    }
+    else {
+      console.log(`req.session.id_order=${req.session.id_order} exists. Create detail now.`)
+      db.Detail.create({id_order:req.session.id_order, id_menu: menu_id, quantity: 1, notes: "" })
+      .then ( menu => {
+        var message = `Created order ${order.id} with menu ${menu_id}.`
+        console.log(message);
+
+        res.redirect('/');
+      })
+    }
+
+  }
+
+
+})
+
 
 module.exports = router;

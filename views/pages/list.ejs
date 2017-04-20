@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/head %>
+</head>
+<body>
+  <% include ../partials/navbar %>
+
+  <h4>Users</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <%
+      let i=1;
+      users.forEach(user =>{
+        %>
+        <tr>
+          <td><%=i%></td>
+          <td><%=user.name%></td>
+          <td><%=user.phone%></td>
+          <td><%=user.email%></td>
+          <td>
+              <a href="/users/list/edit/<%-user.id %>"><i class="material-icons dp48">mode_edit</i></a>
+              <a href="/users/list/delete/<%-user.id %>" onclick="return confirm('Are you sure?')"><i class="material-icons dp48">delete</i></a>
+          </td>
+        </tr>
+        <%
+        i++;
+      })
+      %>
+
+
+    </tbody>
+  </table>
+
+</body>
+
+</html>

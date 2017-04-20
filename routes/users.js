@@ -23,8 +23,6 @@ router.post('/new', (req, res, next) => {
     console.log(`created user ${user.username}.`);
     res.render('./pages/login', {title: "Login", user: req.session.user, message: `You have registered as ${user.username}, please login.`, error: ``});
 
-    // check for duplicate user --> user findOrCreate
-
   })
 })
 
@@ -55,8 +53,9 @@ router.get('/profile',(req,res,next) => {
   res.render('./pages/profile',{title: "Profile", user: req.session.user, message: ``, error: ``});
 
 })
+
 router.post('/profile/edit',(req,res,next) => {
-  
+
   db.User.update({name:req.body.name,email:req.body.email,phone:req.body.phone},{where:{username:req.session.user.username}})
   .then (user =>{
     req.session.user.name=req.body.name;
@@ -69,6 +68,56 @@ router.post('/profile/edit',(req,res,next) => {
     res.send(err)
   })
 })
+
+router.get('/list',(req,res,next) => {
+  db.User.findAll()
+  .then (users =>{
+    res.render('./pages/list',{title: "List",users,user: req.session.user, message: ``, error: ``});
+  })
+  .catch(err =>{
+    res.send(err)
+  })
+
+})
+
+
+router.get('/list/edit/:id',(req,res,next) => {
+
+  var user_id = req.params.id
+
+  db.User.findById(user_id).
+  then (user => {
+    res.render('./pages/edit_user', {title:"Edit User",user: user});
+  })
+})
+
+
+router.post('/list/edit/:id',(req,res,next) => {
+
+  db.User.update({name:req.body.name,email:req.body.email,phone:req.body.phone},{where:{id:req.params.id}})
+  .then (user =>{
+    console.log(user);
+    res.redirect('/users/list',{title: "List",users,user: req.session.user, message: ``, error: ``});
+  })
+  .catch(err =>{
+    res.send(err)
+  })
+})
+
+router.get('/list/delete/:id', (req, res, next) => {
+
+  var id = req.params.id
+  db.User.destroy({where: {id: id}})
+  .then ( (user) => {
+      if(user === 1)
+          res.redirect('/users/list');
+      })
+
+  .catch ( err => {
+      console.log(err.message);
+  })
+});
+
 
 router.get('/logout', (req, res, next) => {
   req.session.destroy( () => {
@@ -218,6 +267,7 @@ router.get('/user_order', (req, res, next) => {
   }
 
 })
+
 
 
 module.exports = router;

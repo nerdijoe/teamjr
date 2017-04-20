@@ -72,7 +72,6 @@ router.post('/order', (req, res, next) => {
   console.log(req.session.user);
 
 
-
   // user needs to login first
   if(!req.session.user) {
     res.render('./pages/login', { title: 'Login', user: undefined, message: "Please Login to order food.", error: '' });
@@ -82,11 +81,12 @@ router.post('/order', (req, res, next) => {
     // res.redirect('/');
 
     //if user has NOT created order, create order
-    if(!req.session.id_order) {
+    if(!req.session.user.id_order) {
       db.Order.create({id_user: req.session.user.id, is_checkout: false, total: 0})
       .then ( order => {
         db.Detail.create({id_order:order.id, id_menu: menu_id, quantity: 1, notes: "" })
         .then ( menu => {
+          req.session.user.id_order = order.id;
           var message = `Created order ${order.id} with menu ${menu_id}.`
           console.log(message);
 
@@ -96,10 +96,10 @@ router.post('/order', (req, res, next) => {
       })
     }
     else {
-      console.log(`req.session.id_order=${req.session.id_order} exists. Create detail now.`)
-      db.Detail.create({id_order:req.session.id_order, id_menu: menu_id, quantity: 1, notes: "" })
+      console.log(`req.session.id_order=${req.session.user.id_order} exists. Create detail now.`)
+      db.Detail.create({id_order:req.session.user.id_order, id_menu: menu_id, quantity: 1, notes: "" })
       .then ( menu => {
-        var message = `Created order ${order.id} with menu ${menu_id}.`
+        var message = `Created order ${req.session.user.id_order} with menu ${menu_id}.`
         console.log(message);
 
         res.redirect('/');
@@ -108,6 +108,80 @@ router.post('/order', (req, res, next) => {
 
   }
 
+
+})
+
+router.get('/user_order', (req, res, next) => {
+
+  if(!req.session.user) {
+    res.render('./pages/login', { title: 'Login', user: undefined, message: "Please Login to order food.", error: '' });
+  }
+  else {
+    // if id_order exists
+    if(req.session.user.id_order) {
+      console.log(`users/order`)
+      console.log(req.session.user);
+
+
+      // query based on the id_order
+      db.Order.findById(req.session.user.id_order)
+      .then ( order => {
+        order.getMenus()
+        .then ( menus => {
+
+          function isExist(a, b) {
+            if (a.id == b.id )
+            return true;
+          }
+
+          // format the ordered menus
+          let ordered_menus = [];
+          menus.forEach( m => {
+
+            let isFound = false;
+            let i = 0;
+            for ( ; i < ordered_menus.length ; i++ ) {
+              if( ordered_menus[i].id == m.id) {
+                isFound = true;
+                break;
+              }
+            }
+
+            if (isFound) {
+              ordered_menus[i].quantity += 1;
+            } else {
+              let new_item = {};
+              new_item.id = m.id;
+              new_item.name = m.name;
+              new_item.price = m.price;
+              new_item.quantity = 1;
+              ordered_menus.push(new_item);
+            }
+
+
+          })
+
+          // calculate subtotal
+          ordered_menus.forEach( o => {
+            o.subtotal = o.price * o.quantity;
+          })
+
+
+          res.render('./pages/order', { title: 'My Order',  user: req.session.user, message: "", error: "", menus: ordered_menus });
+
+        })
+      })
+
+    }
+    // if id_order does not exists
+    else {
+      res.render('./pages/order', { title: 'My Order',  user: req.session.user, message: "You have not added any menu yet. Please add one.", error: "", menus: undefined });
+
+
+    }
+
+
+  }
 
 })
 

@@ -6,11 +6,13 @@
       <% if (user) { %>
         <% if (user.role === 0) { %>
           <li><span class="new badge" data-badge-caption="Super Admin"></span></li>
+
         <% } else if (user.role === 1) { %>
           <li><span class="new badge" data-badge-caption="Admin"></span></li>
         <% } else if (user.role === 2) { %>
           <li><span class="new badge" data-badge-caption="Normal User"></span></li>
         <% } %>
+        <li><a href='/users/list'><i class="material-icons">supervisor_account</i></a></li>
         <li><a href='/users/profile'><i class="material-icons">perm_identity</i></a></li>
         <li><a href='/users/logout'>Logout</a></li>
       <% } else { %>

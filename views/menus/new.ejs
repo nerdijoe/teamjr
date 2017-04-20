@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/head %>
+  </head>
+  <body>
+    <% include ../partials/navbar %>
+    <h3><%= title %></h3>
+
+
+    <form action="/menus/new" method="post">
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="Menu Name" type="text" name="name">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="Price" type="text" name="price">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s2">
+        </div>
+        <div class="input-field col s2">
+          <input class="btn" type="submit" value="Submit">
+        </div>
+        <div class="input-field col s2">
+        </div>
+        <div class="input-field col s6">
+        </div>
+      </div> <!-- end of class row-->
+
+    </form>
+
+
+  </body>
+</html>

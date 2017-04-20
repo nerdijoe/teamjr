@@ -12,11 +12,12 @@
     <% include ../partials/card_message %>
     <% include ../partials/card_error %>
 
+    <div class="row">
+
     <% if (menus) {
         menus.forEach( menu => {
     %>
-        <div class="row">
-          <div class="col s8 m4">
+          <div class="col s3 m3">
             <div class="card">
               <div class="card-image">
                 <img src="images/<%= menu.image %>">
@@ -35,11 +36,11 @@
               </div>
             </div>
           </div>
-        </div>
     <%
         })
       } // end of if menus
     %>
+  </div>
 
 
 

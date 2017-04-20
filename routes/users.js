@@ -16,7 +16,12 @@ router.post('/new', (req, res, next) => {
   var username = req.body.username;
   var email = req.body.email;
   var password = req.body.password;
-  var role = req.body.role;
+
+  /*
+  role 0 Admin
+  role 1 Normal User
+  */
+  var role = 1;
 
   db.User.create({name: name, username: username, email: email, password: password, role: role})
   .then ( user => {
@@ -39,7 +44,7 @@ router.post('/login', (req, res, next) => {
       console.log(`find user ${user.username}`);
       //set session
       req.session.user = user;
-      res.redirect('/home');
+      res.redirect('/');
     }
     else {
       // res.redirect('/');

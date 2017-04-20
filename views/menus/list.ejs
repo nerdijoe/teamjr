@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/head %>
+  </head>
+  <body>
+    <% include ../partials/navbar %>
+    <h5><%= title %></h5>
+
+    <% include ../partials/card_message %>
+    <% include ../partials/card_error %>
+
+    <p>
+      <a href='/menus/new' class="btn waves-effect waves-light"> Create New Menu <i class="material-icons">subject</i></a>
+    </p>
+
+    <% if (menus) { %>
+
+    <table class="highlight">
+      <thead>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Actions</th>
+
+      </thead>
+      <%
+        menus.forEach( m => {
+      %>
+        <tr>
+          <td> <%= m.name %> </td>
+          <td> <%= m.price %></a> </td>
+          <td> <a href="/menus/edit/<%= m.id %>">Edit</a> | <a href="/menus/delete/<%= m.id %>" onClick="return confirm('Are you Sure?')">Del</a> </td>
+        </tr>
+      <%
+        })
+      %>
+
+    </table>
+
+
+    <%
+      } // end of if(menus)
+    %>
+
+
+
+
+</body>
+
+</html>

@@ -7,20 +7,23 @@
     <% include ../partials/navbar %>
     <h5><%= title %></h5>
 
+    <% include ../partials/card_message %>
+    <% include ../partials/card_error %>
+
     <br>
     <a href="/menus"> Back to Menu List </a>
     <br>
 
-    <form action="/menus/new" method="post">
+    <form action="/menus/edit/<%= menu.id %>" method="post">
       <div class="row">
         <div class="input-field col s6">
-          <input placeholder="Menu Name" type="text" name="name">
+          <input placeholder="Menu Name" type="text" name="name", value="<%= menu.name %>">
         </div>
       </div>
 
       <div class="row">
         <div class="input-field col s6">
-          <input placeholder="Price" type="text" name="price">
+          <input placeholder="Price" type="text" name="price" value="<%= menu.price %>">
         </div>
       </div>
 
@@ -37,6 +40,8 @@
       </div> <!-- end of class row-->
 
     </form>
+
+
 
 
   </body>

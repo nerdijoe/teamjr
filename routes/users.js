@@ -60,6 +60,7 @@ router.post('/profile/edit',(req,res,next) => {
   .then (user =>{
     req.session.user.name=req.body.name;
     req.session.user.email=req.body.email;
+    req.session.user.phone = req.body.phone;
     req.session.user.body=req.body.body;
     console.log(user);
     res.redirect('/home');

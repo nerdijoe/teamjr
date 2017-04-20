@@ -85,24 +85,27 @@ router.post('/order', (req, res, next) => {
       db.Order.create({id_user: req.session.user.id, is_checkout: false, total: 0})
       .then ( order => {
         db.Detail.create({id_order:order.id, id_menu: menu_id, quantity: 1, notes: "" })
-        .then ( menu => {
+        .then ( detail => {
           req.session.user.id_order = order.id;
           var message = `Created order ${order.id} with menu ${menu_id}.`
           console.log(message);
 
-          res.redirect('/');
+          res.redirect('/?status=1');
 
         })
       })
     }
     else {
+      // user already has id_order
       console.log(`req.session.id_order=${req.session.user.id_order} exists. Create detail now.`)
       db.Detail.create({id_order:req.session.user.id_order, id_menu: menu_id, quantity: 1, notes: "" })
-      .then ( menu => {
+      .then ( detail => {
         var message = `Created order ${req.session.user.id_order} with menu ${menu_id}.`
         console.log(message);
 
-        res.redirect('/');
+        res.redirect('/?status=1');
+
+
       })
     }
 

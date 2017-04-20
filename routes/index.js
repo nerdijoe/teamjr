@@ -9,8 +9,14 @@ router.get('/', function(req, res, next) {
   db.Menu.findAll()
   .then ( menus => {
 
+    let msg = "";
+    console.log(req.query.status);
+    if(req.query.status) {
+      if(req.query.status == "1")
+        msg = "Your item has been added to your order.";
+    }
 
-    res.render('./pages/index', { title: 'JR Food',  user: req.session.user, message: "", error: "", menus: menus });
+    res.render('./pages/index', { title: 'JR Food',  user: req.session.user, message: msg, error: "", menus: menus });
 
   })
 

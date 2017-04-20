@@ -9,6 +9,9 @@
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
 
+    <% include ../partials/card_message %>
+    <% include ../partials/card_error %>
+
     <% if (menus) {
         menus.forEach( menu => {
     %>

@@ -63,7 +63,7 @@ router.post('/profile/edit',(req,res,next) => {
     req.session.user.phone = req.body.phone;
     req.session.user.body=req.body.body;
     console.log(user);
-    res.redirect('/home');
+    res.redirect('/users/profile');
   })
   .catch(err =>{
     res.send(err)
@@ -98,7 +98,7 @@ router.post('/list/edit/:id',(req,res,next) => {
   db.User.update({name:req.body.name,email:req.body.email,phone:req.body.phone},{where:{id:req.params.id}})
   .then (user =>{
     console.log(user);
-    res.redirect('/users/list',{title: "List",users,user: req.session.user, message: ``, error: ``});
+    res.redirect('/users/list');
   })
   .catch(err =>{
     res.send(err)

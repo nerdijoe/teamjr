@@ -56,14 +56,14 @@ router.get('/profile',(req,res,next) => {
 
 })
 router.post('/profile/edit',(req,res,next) => {
-  
+
   db.User.update({name:req.body.name,email:req.body.email,phone:req.body.phone},{where:{username:req.session.user.username}})
   .then (user =>{
     req.session.user.name=req.body.name;
     req.session.user.email=req.body.email;
     req.session.user.body=req.body.body;
     console.log(user);
-    res.redirect('/home');
+    res.redirect('/users/profile');
   })
   .catch(err =>{
     res.send(err)

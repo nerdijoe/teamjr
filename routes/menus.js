@@ -2,6 +2,10 @@ var express = require('express');
 var router = express.Router();
 const db = require('../models')
 
+const fileUpload = require('express-fileupload');
+const app = express();
+app.use(fileUpload());
+
 
 router.get('/', (req, res, next) => {
 
@@ -20,10 +24,22 @@ router.get('/new', (req, res , next) => {
 router.post('/new', (req, res, next) => {
   var name = req.body.name;
   var price = req.body.price;
+  let image_file = req.files.image;
 
-  db.Menu.create(({name: name, price: price}))
+  var image = image_file.name;
+
+  console.log("*****");
+  console.log(req.files);
+  console.log(req.body);
+  console.log("*****")
+
+  image_file.mv(`./public/images/${image}`);
+  // image_file.mv(`./public/images/.`);
+
+
+  db.Menu.create(({name: name, price: price, image: image}))
   .then ( menu => {
-    let message = `Menu ${menu.name} with price=${menu.price} has been created.`;
+    let message = `Menu ${menu.name} with price=${menu.price} with image '${menu.image}'has been created.`;
     console.log(message);
 
     // res.render('./pages/home', { title: 'Home',  user: req.session.user, message: message, error: "" })

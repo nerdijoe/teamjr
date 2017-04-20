@@ -19,8 +19,7 @@
           <div class="col s8 m4">
             <div class="card">
               <div class="card-image">
-                <img src="images/cheesetart.jpg">
-                <span class="card-title"><%= menu.name %></span>
+                <img src="images/<%= menu.image %>">
 
                 <form method="post" action="/users/order">
                   <input type="hidden" name="menu_id" value="<%= menu.id %>">
@@ -30,7 +29,9 @@
 
               </div>
               <div class="card-content">
-                <p>IDR <%= menu.price %></p>
+              <span class="card-title"><%= menu.name %></span>
+
+                <p>Rp. <%= menu.price %></p>
               </div>
             </div>
           </div>

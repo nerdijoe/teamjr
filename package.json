@@ -17,5 +17,18 @@
     "pg": "^6.1.5",
     "sequelize": "^3.30.4",
     "serve-favicon": "~2.4.2"
-  }
+  },
+  "description": "## Tables 1. Users 2. Orders 3. Menus 4. Details",
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nerdijoe/teamjr.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nerdijoe/teamjr/issues"
+  },
+  "homepage": "https://github.com/nerdijoe/teamjr#readme"
 }
